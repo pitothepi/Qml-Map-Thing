@@ -1,5 +1,5 @@
 import QtQuick
-import QtQuick.Effects
+import QtQuick.Controls
 import QtLocation
 import QtPositioning
 import QtQuick.Layouts
@@ -14,53 +14,52 @@ Window {
     visible: true
     title: qsTr("Hello World")
 
-    RowLayout {
+    ControllableMap {
+        id: map
+
         anchors.fill: parent
-        Rectangle {
-            Layout.fillWidth: true
-            Layout.fillHeight: true
 
-            ControllableMap {
-                id: map
-                anchors.fill: parent
-                anchors.margins: root.margin
-
-                plugin: Plugin {
-                    name: "osm"
-                }
-                center: QtPositioning.coordinate(59.91, 10.75) // Oslo
-                zoomLevel: 14
-            }
-            MultiEffect {
-                source: map
-                anchors.fill: map
-                shadowBlur: 1.0
-                shadowEnabled: true
-                shadowColor: "black"
-                shadowVerticalOffset: 5
-                shadowHorizontalOffset: 5
-            }
+        plugin: Plugin {
+            name: "osm"
         }
-        Rectangle {
-            id: textRect
-            width: childrenRect.width + root.margin
-            height: childrenRect.height + root.margin
-            color: none
-            ColumnLayout {
-                id: helloTextBox
-                Text {
+
+        center: QtPositioning.coordinate(59.91, 10.75) // Oslo
+        zoomLevel: 14
+    }
+
+    ColumnLayout {
+        id: rightMenu
+        anchors.right: map.right
+        anchors.top: map.top
+        anchors.margins: root.margin
+
+        width: childrenRect.width
+        height: childrenRect.height
+
+        spacing: root.margin
+
+        ShadowBox {
+            Control {
+                padding: 5
+                contentItem: Text {
+                    id: jawn
                     text: "Hello\nWorld"
                 }
             }
+        }
 
-            MultiEffect {
-                source: helloTextBox
-                anchors.fill: helloTextBox
-                shadowBlur: 1.0
-                shadowEnabled: true
-                shadowColor: "black"
-                shadowVerticalOffset: 5
-                shadowHorizontalOffset: 5
+        ShadowBox {
+            Control {
+                padding: 5
+                contentItem: ComboBox {
+                    id: mapTypeCombobox
+
+                    model: map.supportedMapTypes
+                    textRole: "name"
+                    implicitContentWidthPolicy: ComboBox.WidestText
+
+                    onCurrentIndexChanged: map.activeMapType = map.supportedMapTypes[ mapTypeCombobox.currentIndex ]
+                }
             }
         }
     }

@@ -16,7 +16,9 @@ qt_add_executable(app
 qt_add_qml_module(mainqml
     URI mainqml
     OUTPUT_DIRECTORY mainqml
-    QML_FILES src/qml/Main.qml src/qml/ControllableMap.qml
+    QML_FILES src/qml/Main.qml
+    QML_FILES src/qml/ControllableMap.qml
+    QML_FILES src/qml/ShadowBox.qml
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
