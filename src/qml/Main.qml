@@ -7,7 +7,7 @@ import QtQuick.Layouts
 Window {
     id: root
 
-    property int margin: 5
+    property int margin: 10
 
     width: 640
     height: 480
@@ -23,7 +23,7 @@ Window {
             ControllableMap {
                 id: map
                 anchors.fill: parent
-                anchors.margins: 5
+                anchors.margins: root.margin
 
                 plugin: Plugin {
                     name: "osm"
@@ -31,25 +31,36 @@ Window {
                 center: QtPositioning.coordinate(59.91, 10.75) // Oslo
                 zoomLevel: 14
             }
+            MultiEffect {
+                source: map
+                anchors.fill: map
+                shadowBlur: 1.0
+                shadowEnabled: true
+                shadowColor: "black"
+                shadowVerticalOffset: 5
+                shadowHorizontalOffset: 5
+            }
         }
         Rectangle {
             id: textRect
             width: childrenRect.width + root.margin
             height: childrenRect.height + root.margin
+            color: none
             ColumnLayout {
-
+                id: helloTextBox
                 Text {
-                    text: "hello"
-                    MultiEffect {                               // TODO: this doesn't work
-                        source: text
-                        anchors.fill: textRect
-                        shadowBlur: 1.0
-                        shadowEnabled: true
-                        shadowColor: "black"
-                        shadowVerticalOffset: 2
-                        shadowHorizontalOffset: 2
-                    }
+                    text: "Hello\nWorld"
                 }
+            }
+
+            MultiEffect {
+                source: helloTextBox
+                anchors.fill: helloTextBox
+                shadowBlur: 1.0
+                shadowEnabled: true
+                shadowColor: "black"
+                shadowVerticalOffset: 5
+                shadowHorizontalOffset: 5
             }
         }
     }
