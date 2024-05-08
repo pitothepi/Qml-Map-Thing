@@ -77,5 +77,18 @@ Window {
                 }
             }
         }
+
+        ShadowBox {
+            Control {
+                padding: 5
+                contentItem: ListView {
+                    model: MyController.ids
+
+                    delegate: Text {
+                        text: index
+                    }
+                }
+            }
+        }
     }
 }
