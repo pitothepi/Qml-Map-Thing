@@ -4,6 +4,7 @@ import QtLocation
 import QtPositioning
 import QtQuick.Layouts
 
+
 Window {
     id: root
 
@@ -23,7 +24,21 @@ Window {
             name: "osm"
         }
 
-        center: QtPositioning.coordinate(59.91, 10.75) // Oslo
+        MapItemView {
+            model: [1]//MyController.ids
+
+            delegate: MapCircle {
+                required property int modelData
+
+                center: QtPositioning.coordinate( modelData, modelData )
+
+                radius: 500000
+                color: 'green'
+                border.width: 10
+            }
+        }
+
+        center: QtPositioning.coordinate( 0, 0 ) //59.91, 10.75) // Oslo
         zoomLevel: 14
     }
 

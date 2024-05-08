@@ -13,13 +13,7 @@ qt_add_executable(app
     src/main.cpp
 )
 
-qt_add_qml_module(mainqml
-    URI mainqml
-    OUTPUT_DIRECTORY mainqml
-    QML_FILES src/qml/Main.qml
-    QML_FILES src/qml/ControllableMap.qml
-    QML_FILES src/qml/ShadowBox.qml
-)
+add_subdirectory(src/qml)
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
@@ -33,8 +27,14 @@ set_target_properties(app PROPERTIES
 )
 
 target_link_libraries(app PRIVATE
+    mainqmlplugin
+    mainqml
     Qt::Quick
     Qt::Gui
+)
+
+target_include_directories(app PRIVATE
+
 )
 
 set_target_properties(app PROPERTIES
