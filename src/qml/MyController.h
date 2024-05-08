@@ -12,7 +12,7 @@ class MyController : public QObject
     QML_SINGLETON
     QML_ELEMENT
 
-    Q_PROPERTY(QList<int> ids READ getIds WRITE setIds NOTIFY idsChanged)
+    Q_PROPERTY(QList<QVariant> ids READ getIds WRITE setIds NOTIFY idsChanged)
 
 public:
     static MyController* getInstance(QObject *parent);
@@ -24,8 +24,8 @@ public:
 
 
 public:
-    QList<int> getIds() const;
-    void setIds(const QList<int> &newIds);
+    QList<QVariant> getIds() const;
+    void setIds(const QList<QVariant> &newIds);
 
 signals:
     void idsChanged();
@@ -35,7 +35,7 @@ private:
 
 
 private:
-    QList<int> m_ids{};
+    QList<QVariant> m_ids{};
 
     static inline MyController* m_instance{nullptr};
     QJSEngine* m_engine{};

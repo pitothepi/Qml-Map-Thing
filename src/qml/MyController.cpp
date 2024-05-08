@@ -22,13 +22,13 @@ MyController* MyController::getInstance(QObject* parent)
 }
 
 
-QList<int> MyController::getIds() const
+QList<QVariant> MyController::getIds() const
 {
     return m_ids;
 }
 
 
-void MyController::setIds(const QList<int> &newIds)
+void MyController::setIds(const QList<QVariant> &newIds)
 {
     if (m_ids == newIds)
         return;
